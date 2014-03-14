@@ -1,0 +1,10 @@
+Temp*
+Obj*
+Library*
+UpgradeLog.*
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.userprefs
+-*
