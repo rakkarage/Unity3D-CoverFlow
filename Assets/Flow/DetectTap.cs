@@ -1,7 +1,7 @@
 ﻿using TouchScript.Gestures;
 using TouchScript.Gestures.Simple;
 using UnityEngine;
-namespace ca.HenrySoftware.Deko
+namespace ca.HenrySoftware.CoverFlow
 {
 	public class DetectTap : MonoBehaviour
 	{
