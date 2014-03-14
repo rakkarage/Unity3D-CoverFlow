@@ -9,6 +9,7 @@ namespace ca.HenrySoftware.CoverFlow
 		public GameObject[] views;
 		private int _clamp = 0;
 		private int _current;
+		private int _tweenInertia;
 		protected void Start()
 		{
 			_clamp = views.Length * Offset + 1;
@@ -95,7 +96,14 @@ namespace ca.HenrySoftware.CoverFlow
 		}
 		public void Inertia(float velocity)
 		{
-			LeanTween.value(gameObject, Flow, velocity, 0, 0.5f).setEase(LeanTweenType.easeInExpo).setOnComplete(Flow);
+			_tweenInertia = LeanTween.value(gameObject, Flow, velocity, 0, 0.5f).setEase(LeanTweenType.easeInExpo).setOnComplete(Flow).id;
+		}
+		public void StopInertia()
+		{
+			if ((_tweenInertia != 0) && LeanTween.isTweening(_tweenInertia))
+			{
+				LeanTween.cancel(gameObject, _tweenInertia);
+			}
 		}
 		protected void OnGUI()
 		{
