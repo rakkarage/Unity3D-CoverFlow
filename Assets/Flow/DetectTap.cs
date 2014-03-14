@@ -5,6 +5,8 @@ namespace ca.HenrySoftware.CoverFlow
 {
 	public class DetectTap : MonoBehaviour
 	{
+		public float Scale = 1.1f;
+		public float Time = 0.333f;
 		private Vector3 _origiginalScale;
 		public void OnEnable()
 		{
@@ -39,8 +41,8 @@ namespace ca.HenrySoftware.CoverFlow
 		}
 		private void ScaleUp(GameObject o)
 		{
-			Vector3 scaleTo = Vector3.Scale(o.transform.localScale, new Vector3(1.1f, 1.1f, 1.0f));
-			LeanTween.scale(o, scaleTo, 0.333f).setEase(LeanTweenType.easeSpring);
+			Vector3 scaleTo = Vector3.Scale(o.transform.localScale, new Vector3(Scale, Scale, 1.0f));
+			LeanTween.scale(o, scaleTo, Time).setEase(LeanTweenType.easeSpring);
 		}
 		private void HandleRelease(object sender, TouchScript.Events.GestureStateChangeEventArgs e)
 		{
@@ -52,7 +54,7 @@ namespace ca.HenrySoftware.CoverFlow
 		}
 		private void ScaleDown(GameObject o)
 		{
-			LeanTween.scale(o, _origiginalScale, 0.333f).setEase(LeanTweenType.easeSpring);
+			LeanTween.scale(o, _origiginalScale, Time).setEase(LeanTweenType.easeSpring);
 		}
 	}
 }
