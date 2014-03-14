@@ -14,17 +14,17 @@ namespace ca.HenrySoftware.CoverFlow
 		{
 			GetComponent<SimplePanGesture>().StateChanged -= HandleSimplePanStateChanged;
 		}
-		private void HandleSimplePanStateChanged(object s, TouchScript.Events.GestureStateChangeEventArgs e)
+		private void HandleSimplePanStateChanged(object sender, TouchScript.Events.GestureStateChangeEventArgs e)
 		{
-			SimplePanGesture target = s as SimplePanGesture;
+			SimplePanGesture target = sender as SimplePanGesture;
 			switch (e.State)
 			{
 				case Gesture.GestureState.Began:
 				case Gesture.GestureState.Changed:
+					Debug.Log(target.LocalDeltaPosition);
+					Debug.Log(target.WorldDeltaPosition);
 					if (target.LocalDeltaPosition != Vector3.zero)
-					{
 						FlowView.Instance.Flow(target.LocalDeltaPosition.x);
-					}
 					break;
 				case Gesture.GestureState.Ended:
 					float velocity = target.LocalTransformCenter.x - target.PreviousLocalTransformCenter.x;

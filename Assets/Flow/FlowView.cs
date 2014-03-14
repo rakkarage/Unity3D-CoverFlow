@@ -43,7 +43,7 @@ namespace ca.HenrySoftware.CoverFlow
 			float closestDistance = float.MaxValue;
 			for (int i = 0; i < views.Length; i++)
 			{
-				float distance = (Vector3.zero - views[i].transform.position).sqrMagnitude;
+				float distance = (Vector3.zero - views[i].transform.localPosition).sqrMagnitude;
 				if (distance < closestDistance)
 				{
 					closestIndex = i;
@@ -58,7 +58,7 @@ namespace ca.HenrySoftware.CoverFlow
 			{
 				int delta = (target - i) * -1;
 				Vector3 to = new Vector3(delta * Offset, 0.0f, Mathf.Abs(delta) * Offset);
-				LeanTween.move(views[i], to, Time).setEase(LeanTweenType.easeSpring);
+				LeanTween.moveLocal(views[i], to, Time).setEase(LeanTweenType.easeSpring);
 			}
 			_current = target;
 		}
@@ -66,7 +66,7 @@ namespace ca.HenrySoftware.CoverFlow
 		{
 			for (int i = 0; i < views.Length; i++)
 			{
-				Vector3 p = views[i].transform.position;
+				Vector3 p = views[i].transform.localPosition;
 				float newX = p.x + offset;
 				bool negative = newX < 0;
 				Vector3 newP;
@@ -80,7 +80,7 @@ namespace ca.HenrySoftware.CoverFlow
 				{
 					newP = new Vector3(newX, p.y, Mathf.Abs(newX));
 				}
-				views[i].transform.position = newP;
+				views[i].transform.localPosition = newP;
 			}
 		}
 		private float ClampXMin(int index, bool negative)
