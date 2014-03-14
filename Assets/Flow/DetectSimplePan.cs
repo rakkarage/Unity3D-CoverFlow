@@ -5,6 +5,7 @@ namespace ca.HenrySoftware.CoverFlow
 {
 	public class DetectSimplePan : MonoBehaviour
 	{
+		public float Threshold = 0.1f;
 		public void OnEnable()
 		{
 			GetComponent<SimplePanGesture>().StateChanged += HandleSimplePanStateChanged;
@@ -26,7 +27,11 @@ namespace ca.HenrySoftware.CoverFlow
 					}
 					break;
 				case Gesture.GestureState.Ended:
-					FlowView.Instance.Inertia(target.LocalTransformCenter.x - target.PreviousLocalTransformCenter.x);
+					float velocity = target.LocalTransformCenter.x - target.PreviousLocalTransformCenter.x;
+					if (Mathf.Abs(velocity) > Threshold)
+						FlowView.Instance.Inertia(velocity);
+					else
+						FlowView.Instance.Flow();
 					break;
 			}
 		}
