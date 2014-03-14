@@ -26,7 +26,7 @@ namespace ca.HenrySoftware.CoverFlow
 					}
 					break;
 				case Gesture.GestureState.Ended:
-					FlowView.Instance.Flow(FlowView.Instance.GetClosestIndex());
+					FlowView.Instance.Flow();
 					break;
 			}
 		}

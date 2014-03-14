@@ -27,6 +27,10 @@ namespace ca.HenrySoftware.CoverFlow
 				Flow(found);
 			}
 		}
+		public void Flow()
+		{
+			Flow(GetClosestIndex());
+		}
 		public int GetClosestIndex()
 		{
 			int closestIndex = -1;
