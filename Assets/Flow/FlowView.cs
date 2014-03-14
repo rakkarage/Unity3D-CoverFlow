@@ -107,16 +107,16 @@ namespace ca.HenrySoftware.CoverFlow
 		}
 		protected void OnGUI()
 		{
-			if (GUI.Button(new Rect(10.0f, 10.0f, 20.0f, 20.0f), "<"))
+			if (GUI.Button(new Rect(10.0f, 10.0f, 64.0f, 64.0f), "<"))
 			{
 				if (_current > 0)
 				{
 					Flow(_current - 1);
 				}
 			}
-			if (GUI.Button(new Rect(10.0f, 30.0f, 20.0f, 20.0f), ">"))
+			if (GUI.Button(new Rect(10.0f, 64.0f, 64.0f, 64.0f), ">"))
 			{
-				if (_current < 5)
+				if (_current < views.Length - 1)
 				{
 					Flow(_current + 1);
 				}
