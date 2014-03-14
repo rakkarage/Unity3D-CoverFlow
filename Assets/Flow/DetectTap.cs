@@ -18,6 +18,10 @@ namespace ca.HenrySoftware.CoverFlow
 			GetComponent<PressGesture>().StateChanged -= HandlePress;
 			GetComponent<ReleaseGesture>().StateChanged -= HandleRelease;
 		}
+		protected void Awake()
+		{
+			_origiginalScale = gameObject.transform.localScale;
+		}
 		private void HandleTap(object sender, TouchScript.Events.GestureStateChangeEventArgs e)
 		{
 			if (e.State == Gesture.GestureState.Recognized)
@@ -35,7 +39,6 @@ namespace ca.HenrySoftware.CoverFlow
 		}
 		private void ScaleUp(GameObject o)
 		{
-			_origiginalScale = o.transform.localScale;
 			Vector3 scaleTo = Vector3.Scale(o.transform.localScale, new Vector3(1.1f, 1.1f, 1.0f));
 			LeanTween.scale(o, scaleTo, 0.333f).setEase(LeanTweenType.easeSpring);
 		}
