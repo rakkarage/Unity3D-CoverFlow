@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-namespace ca.HenrySoftware.Deko
+namespace ca.HenrySoftware.CoverFlow
 {
 	public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 	{
