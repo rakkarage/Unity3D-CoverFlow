@@ -15,18 +15,18 @@ namespace ca.HenrySoftware.CoverFlow
 		}
 		private void HandleSimplePanStateChanged(object s, TouchScript.Events.GestureStateChangeEventArgs e)
 		{
+			SimplePanGesture target = s as SimplePanGesture;
 			switch (e.State)
 			{
 				case Gesture.GestureState.Began:
 				case Gesture.GestureState.Changed:
-					SimplePanGesture target = s as SimplePanGesture;
 					if (target.LocalDeltaPosition != Vector3.zero)
 					{
 						FlowView.Instance.Flow(target.LocalDeltaPosition.x);
 					}
 					break;
 				case Gesture.GestureState.Ended:
-					FlowView.Instance.Flow();
+					FlowView.Instance.Inertia(target.LocalTransformCenter.x - target.PreviousLocalTransformCenter.x);
 					break;
 			}
 		}

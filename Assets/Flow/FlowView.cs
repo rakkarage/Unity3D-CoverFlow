@@ -66,6 +66,10 @@ namespace ca.HenrySoftware.CoverFlow
 				views[i].transform.position = newp;
 			}
 		}
+		public void Inertia(float velocity)
+		{
+			LeanTween.value(gameObject, Flow, velocity, 0, 1.0f).setOnComplete(Flow);
+		}
 		protected void OnGUI()
 		{
 			if (GUI.Button(new Rect(10.0f, 10.0f, 20.0f, 20.0f), "<"))
