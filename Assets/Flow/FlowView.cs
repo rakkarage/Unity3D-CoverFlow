@@ -7,12 +7,31 @@ namespace ca.HenrySoftware.CoverFlow
 		public int Offset = 1;
 		public bool Clamp = true;
 		public GameObject[] views;
-		private int _clamp = 0;
+		private int _clamp;
 		private int _current;
 		private int _tweenInertia;
 		protected void Start()
 		{
 			_clamp = views.Length * Offset + 1;
+		}
+		public int GetClosestIndex()
+		{
+			int closestIndex = -1;
+			float closestDistance = float.MaxValue;
+			for (int i = 0; i < views.Length; i++)
+			{
+				float distance = (Vector3.zero - views[i].transform.localPosition).sqrMagnitude;
+				if (distance < closestDistance)
+				{
+					closestIndex = i;
+					closestDistance = distance;
+				}
+			}
+			return closestIndex;
+		}
+		public void Flow()
+		{
+			Flow(GetClosestIndex());
 		}
 		private int GetIndex(GameObject view)
 		{
@@ -33,25 +52,6 @@ namespace ca.HenrySoftware.CoverFlow
 			{
 				Flow(found);
 			}
-		}
-		public void Flow()
-		{
-			Flow(GetClosestIndex());
-		}
-		public int GetClosestIndex()
-		{
-			int closestIndex = -1;
-			float closestDistance = float.MaxValue;
-			for (int i = 0; i < views.Length; i++)
-			{
-				float distance = (Vector3.zero - views[i].transform.localPosition).sqrMagnitude;
-				if (distance < closestDistance)
-				{
-					closestIndex = i;
-					closestDistance = distance;
-				}
-			}
-			return closestIndex;
 		}
 		public void Flow(int target)
 		{
