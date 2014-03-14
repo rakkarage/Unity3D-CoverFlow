@@ -5,8 +5,14 @@ namespace ca.HenrySoftware.CoverFlow
 	{
 		public float Time = 0.333f;
 		public int Offset = 1;
+		public bool Clamp = true;
 		public GameObject[] views;
+		private int _clamp = 0;
 		private int _current;
+		protected void Start()
+		{
+			_clamp = views.Length * Offset + 1; // todo: put in property so can change in inspector
+		}
 		private int GetIndex(GameObject view)
 		{
 			int found = -1;
@@ -61,10 +67,31 @@ namespace ca.HenrySoftware.CoverFlow
 			for (int i = 0; i < views.Length; i++)
 			{
 				Vector3 p = views[i].transform.position;
-				float newx = p.x + offset;
-				Vector3 newp = new Vector3(newx, p.y, Mathf.Abs(newx));
-				views[i].transform.position = newp;
+				float newX = p.x + offset;
+				bool negative = newX < 0;
+				Vector3 newP;
+				if (Clamp)
+				{
+					float clampX = Mathf.Clamp(newX, ClampXMin(i, negative), ClampXMax(i, negative));
+					float clampZ = Mathf.Clamp(Mathf.Abs(newX), 0.0f, ClampXMax(i, negative));
+					newP = new Vector3(clampX, p.y, clampZ);
+				}
+				else
+				{
+					newP = new Vector3(newX, p.y, Mathf.Abs(newX));
+				}
+				views[i].transform.position = newP;
 			}
+		}
+		private float ClampXMin(int index, bool negative)
+		{
+			float newIndex = negative ? index : newIndex = views.Length - index - 1;
+			return -(_clamp - (Offset * newIndex));
+		}
+		private float ClampXMax(int index, bool negative)
+		{
+			float newIndex = negative ? index : newIndex = views.Length - index - 1;
+			return _clamp - (Offset * newIndex);
 		}
 		public void Inertia(float velocity)
 		{
