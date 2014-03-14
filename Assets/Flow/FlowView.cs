@@ -11,7 +11,7 @@ namespace ca.HenrySoftware.CoverFlow
 		private int _current;
 		protected void Start()
 		{
-			_clamp = views.Length * Offset + 1; // todo: put in property so can change in inspector
+			_clamp = views.Length * Offset + 1;
 		}
 		private int GetIndex(GameObject view)
 		{

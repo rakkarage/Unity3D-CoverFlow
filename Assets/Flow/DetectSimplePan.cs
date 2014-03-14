@@ -21,8 +21,6 @@ namespace ca.HenrySoftware.CoverFlow
 			{
 				case Gesture.GestureState.Began:
 				case Gesture.GestureState.Changed:
-					Debug.Log(target.LocalDeltaPosition);
-					Debug.Log(target.WorldDeltaPosition);
 					if (target.LocalDeltaPosition != Vector3.zero)
 						FlowView.Instance.Flow(target.LocalDeltaPosition.x);
 					break;
