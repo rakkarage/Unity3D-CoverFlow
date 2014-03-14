@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-[ExecuteInEditMode]
 public class SmoothLookAt : MonoBehaviour
 {
 	public Transform Target;
