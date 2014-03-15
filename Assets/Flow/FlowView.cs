@@ -96,7 +96,6 @@ namespace ca.HenrySoftware.CoverFlow
 		}
 		public void Inertia(float velocity)
 		{
-			StopInertia();
 			_tweenInertia = LeanTween.value(gameObject, Flow, velocity, 0, 0.5f).setEase(LeanTweenType.easeInExpo).setOnComplete(Flow).id;
 		}
 		public void StopInertia()

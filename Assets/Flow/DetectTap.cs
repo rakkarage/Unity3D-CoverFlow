@@ -43,7 +43,8 @@ namespace ca.HenrySoftware.CoverFlow
 		}
 		private void ScaleUp(GameObject o)
 		{
-			if (_tweenUp != null) _tweenUp.cancel();
+			//if (_tweenUp != null) _tweenUp.cancel();
+			//if (_tweenDown != null) _tweenDown.cancel();
 			Vector3 to = Vector3.Scale(_origiginalScale, new Vector3(Scale, Scale, 1.0f));
 			_tweenUp = LeanTween.scale(o, to, Time).setEase(LeanTweenType.easeSpring);
 		}
@@ -57,7 +58,8 @@ namespace ca.HenrySoftware.CoverFlow
 		}
 		private void ScaleDown(GameObject o)
 		{
-			if (_tweenDown != null) _tweenDown.cancel();
+			//if (_tweenUp != null) _tweenUp.cancel();
+			//if (_tweenDown != null) _tweenDown.cancel();
 			_tweenDown = LeanTween.scale(o, _origiginalScale, Time).setEase(LeanTweenType.easeSpring);
 		}
 	}
