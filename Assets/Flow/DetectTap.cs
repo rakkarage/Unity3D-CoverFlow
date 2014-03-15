@@ -41,7 +41,7 @@ namespace ca.HenrySoftware.CoverFlow
 		}
 		private void ScaleUp(GameObject o)
 		{
-			Vector3 scaleTo = Vector3.Scale(o.transform.localScale, new Vector3(Scale, Scale, 1.0f));
+			Vector3 scaleTo = Vector3.Scale(_origiginalScale, new Vector3(Scale, Scale, 1.0f));
 			LeanTween.scale(o, scaleTo, Time).setEase(LeanTweenType.easeSpring);
 		}
 		private void HandleRelease(object sender, TouchScript.Events.GestureStateChangeEventArgs e)
