@@ -6,21 +6,21 @@ namespace ca.HenrySoftware.CoverFlow
 		public float Time = 0.333f;
 		public int Offset = 1;
 		public bool Clamp = true;
-		public GameObject[] views;
+		public GameObject[] Views;
 		private int _clamp;
 		private int _current;
 		private int _tweenInertia;
 		protected void Start()
 		{
-			_clamp = views.Length * Offset + 1;
+			_clamp = Views.Length * Offset + 1;
 		}
 		public int GetClosestIndex()
 		{
 			int closestIndex = -1;
 			float closestDistance = float.MaxValue;
-			for (int i = 0; i < views.Length; i++)
+			for (int i = 0; i < Views.Length; i++)
 			{
-				float distance = (Vector3.zero - views[i].transform.localPosition).sqrMagnitude;
+				float distance = (Vector3.zero - Views[i].transform.localPosition).sqrMagnitude;
 				if (distance < closestDistance)
 				{
 					closestIndex = i;
@@ -36,9 +36,9 @@ namespace ca.HenrySoftware.CoverFlow
 		private int GetIndex(GameObject view)
 		{
 			int found = -1;
-			for (int i = 0; i < views.Length; i++)
+			for (int i = 0; i < Views.Length; i++)
 			{
-				if (view == views[i])
+				if (view == Views[i])
 				{
 					found = i;
 				}
@@ -55,19 +55,19 @@ namespace ca.HenrySoftware.CoverFlow
 		}
 		public void Flow(int target)
 		{
-			for (int i = 0; i < views.Length; i++)
+			for (int i = 0; i < Views.Length; i++)
 			{
 				int delta = (target - i) * -1;
 				Vector3 to = new Vector3(delta * Offset, 0.0f, Mathf.Abs(delta) * Offset);
-				LeanTween.moveLocal(views[i], to, Time).setEase(LeanTweenType.easeSpring);
+				LeanTween.moveLocal(Views[i], to, Time).setEase(LeanTweenType.easeSpring);
 			}
 			_current = target;
 		}
 		public void Flow(float offset)
 		{
-			for (int i = 0; i < views.Length; i++)
+			for (int i = 0; i < Views.Length; i++)
 			{
-				Vector3 p = views[i].transform.localPosition;
+				Vector3 p = Views[i].transform.localPosition;
 				float newX = p.x + offset;
 				bool negative = newX < 0;
 				Vector3 newP;
@@ -81,17 +81,17 @@ namespace ca.HenrySoftware.CoverFlow
 				{
 					newP = new Vector3(newX, p.y, Mathf.Abs(newX));
 				}
-				views[i].transform.localPosition = newP;
+				Views[i].transform.localPosition = newP;
 			}
 		}
 		private float ClampXMin(int index, bool negative)
 		{
-			float newIndex = negative ? index : newIndex = views.Length - index - 1;
+			float newIndex = negative ? index : newIndex = Views.Length - index - 1;
 			return -(_clamp - (Offset * newIndex));
 		}
 		private float ClampXMax(int index, bool negative)
 		{
-			float newIndex = negative ? index : newIndex = views.Length - index - 1;
+			float newIndex = negative ? index : newIndex = Views.Length - index - 1;
 			return _clamp - (Offset * newIndex);
 		}
 		public void Inertia(float velocity)
@@ -100,10 +100,7 @@ namespace ca.HenrySoftware.CoverFlow
 		}
 		public void StopInertia()
 		{
-			if ((_tweenInertia != 0) && LeanTween.isTweening(_tweenInertia))
-			{
-				LeanTween.cancel(gameObject, _tweenInertia);
-			}
+			LeanTween.cancel(gameObject, _tweenInertia);
 		}
 		protected void OnGUI()
 		{
@@ -116,7 +113,7 @@ namespace ca.HenrySoftware.CoverFlow
 			}
 			if (GUI.Button(new Rect(10.0f, 64.0f, 64.0f, 64.0f), ">"))
 			{
-				if (_current < views.Length - 1)
+				if (_current < Views.Length - 1)
 				{
 					Flow(_current + 1);
 				}
