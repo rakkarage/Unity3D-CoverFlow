@@ -8,8 +8,8 @@ namespace ca.HenrySoftware.CoverFlow
 		public float Scale = 1.1f;
 		public float Time = 0.333f;
 		private Vector3 _origiginalScale;
-		private int _tweenUp;
-		private int _tweenDown;
+		private LTDescr _tweenUp;
+		private LTDescr _tweenDown;
 		public void OnEnable()
 		{
 			GetComponent<TapGesture>().StateChanged += HandleTap;
@@ -43,9 +43,10 @@ namespace ca.HenrySoftware.CoverFlow
 		}
 		private void ScaleUp(GameObject o)
 		{
-			LeanTween.cancel(o, _tweenUp);
+			if (_tweenUp != null) _tweenUp.cancel();
+			if (_tweenDown != null) _tweenDown.cancel();
 			Vector3 to = Vector3.Scale(_origiginalScale, new Vector3(Scale, Scale, 1.0f));
-			_tweenUp = LeanTween.scale(o, to, Time).setEase(LeanTweenType.easeSpring).id;
+			_tweenUp = LeanTween.scale(o, to, Time).setEase(LeanTweenType.easeSpring);
 		}
 		private void HandleRelease(object sender, TouchScript.Events.GestureStateChangeEventArgs e)
 		{
@@ -57,8 +58,8 @@ namespace ca.HenrySoftware.CoverFlow
 		}
 		private void ScaleDown(GameObject o)
 		{
-			LeanTween.cancel(o, _tweenDown);
-			_tweenDown = LeanTween.scale(o, _origiginalScale, Time).setEase(LeanTweenType.easeSpring).id;
+			if (_tweenDown != null) _tweenDown.cancel();
+			_tweenDown = LeanTween.scale(o, _origiginalScale, Time).setEase(LeanTweenType.easeSpring);
 		}
 	}
 }
