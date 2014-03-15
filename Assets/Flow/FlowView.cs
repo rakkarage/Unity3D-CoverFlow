@@ -9,10 +9,12 @@ namespace ca.HenrySoftware.CoverFlow
 		public GameObject[] Views;
 		private int _clamp;
 		private int _current;
+		private int[] _tween;
 		private int _tweenInertia;
 		protected void Start()
 		{
 			_clamp = Views.Length * Offset + 1;
+			_tween = new int[Views.Length];
 		}
 		public int GetClosestIndex()
 		{
@@ -59,7 +61,8 @@ namespace ca.HenrySoftware.CoverFlow
 			{
 				int delta = (target - i) * -1;
 				Vector3 to = new Vector3(delta * Offset, 0.0f, Mathf.Abs(delta) * Offset);
-				LeanTween.moveLocal(Views[i], to, Time).setEase(LeanTweenType.easeSpring);
+				LeanTween.cancel(Views[i], _tween[i]);
+				_tween[i] = LeanTween.moveLocal(Views[i], to, Time).setEase(LeanTweenType.easeSpring).id;
 			}
 			_current = target;
 		}
@@ -81,6 +84,7 @@ namespace ca.HenrySoftware.CoverFlow
 				{
 					newP = new Vector3(newX, p.y, Mathf.Abs(newX));
 				}
+				LeanTween.cancel(Views[i], _tween[i]);
 				Views[i].transform.localPosition = newP;
 			}
 		}
@@ -96,6 +100,7 @@ namespace ca.HenrySoftware.CoverFlow
 		}
 		public void Inertia(float velocity)
 		{
+			StopInertia();
 			_tweenInertia = LeanTween.value(gameObject, Flow, velocity, 0, 0.5f).setEase(LeanTweenType.easeInExpo).setOnComplete(Flow).id;
 		}
 		public void StopInertia()
