@@ -20,8 +20,6 @@ namespace ca.HenrySoftware.CoverFlow
 			switch (e.State)
 			{
 				case Gesture.GestureState.Began:
-					FlowView.Instance.StopInertia();
-					goto case Gesture.GestureState.Changed;
 				case Gesture.GestureState.Changed:
 					if (target.LocalDeltaPosition != Vector3.zero)
 						FlowView.Instance.Flow(target.LocalDeltaPosition.x);

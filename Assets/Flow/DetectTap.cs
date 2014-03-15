@@ -37,6 +37,7 @@ namespace ca.HenrySoftware.CoverFlow
 		{
 			if (e.State == Gesture.GestureState.Recognized)
 			{
+				FlowView.Instance.StopInertia();
 				PressGesture gesture = sender as PressGesture;
 				ScaleUp(gesture.gameObject);
 			}
